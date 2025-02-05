@@ -106,7 +106,7 @@ function App() {
               title={item.title}
               description={item.description}
               price={item.price}
-              image={`/images/${item.imageName}`}
+              image={`${process.env.PUBLIC_URL}/images/${item.imageName}`}
             />
           ))}
         </div>

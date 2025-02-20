@@ -200,7 +200,7 @@ function App() {
         )}
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>
-            Close
+            Ok
           </Button>
         </Modal.Footer>
       </Modal>

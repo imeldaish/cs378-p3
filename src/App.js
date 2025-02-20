@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import MenuItem from './components/MenuItem';
 import { Modal, Button } from 'react-bootstrap';
@@ -97,8 +97,15 @@ function App() {
   const handleClearAll = () => {
     setCart([]);
     setSubtotal(0);
-    setResetFlag((prevFlag) => !prevFlag);
+    setResetFlag(true);
   };
+
+  useEffect(() => {
+    // Reset the resetFlag to false after it has been used
+    if (resetFlag) {
+      setResetFlag(false);
+    }
+  }, [resetFlag]);
 
   const handleOrder = () => {
     setShowModal(true);

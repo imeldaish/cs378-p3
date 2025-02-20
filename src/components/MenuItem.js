@@ -42,15 +42,15 @@ const MenuItem = ({ title, description, price, image, updateSubtotal, resetFlag,
               <div className="card-body p-2">
                 <h5 className="card-title">{title}</h5>
                 <p className="card-text mb-1">{description}</p>
-                <div className="d-flex justify-content-between align-items-center">
+                <div className="d-flex flex-row justify-content-between align-items-center">
                   <p className="card-text">
                     <small className="text-muted">${price}</small>
                   </p>
-                </div>
-                <div className="d-flex align-items-center mt-2">
-                  <button className="btn btn-outline-secondary btn-sm" onClick={decreaseQuantity}>-</button>
-                  <p className="mx-2 mb-0">{quantity}</p>
-                  <button className="btn btn-outline-primary btn-sm" onClick={increaseQuantity}>+</button>
+                  <div className="d-flex align-items-center mt-2">
+                    <button className="btn btn-outline-secondary btn-sm" onClick={decreaseQuantity}>-</button>
+                    <p className="mx-2 mb-0">{quantity}</p>
+                    <button className="btn btn-outline-primary btn-sm" onClick={increaseQuantity}>+</button>
+                  </div>
                 </div>
               </div>
             </div>

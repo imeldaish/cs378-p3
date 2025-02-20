@@ -159,6 +159,7 @@ function App() {
           ))}
         </div>
       </div>
+      <div className="spacer"></div>
       <div className="row">
         <div className="col-12">
           <footer className="footer d-flex justify-content-between align-items-center px-4">

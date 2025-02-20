@@ -19,6 +19,10 @@
   color: #d2b447;
 }
 
+.spacer {
+  height: 100px;
+}
+
 .heading-2 {
   display: flex;
   justify-content: center;

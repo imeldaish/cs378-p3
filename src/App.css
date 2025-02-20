@@ -34,3 +34,15 @@
   font-size: 14px;
   border: #e2dfdf;
 }
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 10px 0;
+  height: 10%;
+}

@@ -1,5 +1,7 @@
+import React, { useState } from 'react';
 import './App.css';
 import MenuItem from './components/MenuItem';
+import { Modal, Button } from 'react-bootstrap';
 
 import 'bootstrap/dist/css/bootstrap.min.css'; // This imports bootstrap css styles. You can use bootstrap or your own classes by using the className attribute in your elements.
 
@@ -80,11 +82,47 @@ const menuItems = [
 
 
 function App() {
+  const [cart, setCart] = useState([]);
+  const [subtotal, setSubtotal] = useState(0);
+  const [resetFlag, setResetFlag] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  const updateSubtotal = (amount) => {
+    setSubtotal((prevSubtotal) => {
+      const newSubtotal = prevSubtotal + amount
+      return newSubtotal < 0 ? 0 : newSubtotal;
+    });
+  };
+
+  const handleClearAll = () => {
+    setCart([]);
+    setSubtotal(0);
+    setResetFlag((prevFlag) => !prevFlag);
+  };
+
+  const handleOrder = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false); // Close modal
+  };
+
+  const updateCart = (title, quantity) => {
+    setCart((prevCart) => {
+      const updatedCart = prevCart.filter(item => item.title !== title);
+      if (quantity > 0) {
+        updatedCart.push({ title, quantity });
+      }
+      return updatedCart;
+    });
+  };
+
   return (
     <div className="container mt-4 p-4">
       <div className="row p-3">
         <div className="col-12 d-flex justify-content-center">
-          <img src="logo.png" alt="logo" className="img-fluid w-25" />
+        <img src={`${process.env.PUBLIC_URL}/logo.png`} alt="logo" className="img-fluid w-25" />
         </div>
       </div>
       <div className="row">
@@ -107,10 +145,57 @@ function App() {
               description={item.description}
               price={item.price}
               image={`${process.env.PUBLIC_URL}/images/${item.imageName}`}
+              updateSubtotal={updateSubtotal}
+              updateCart={updateCart}
+              resetFlag={resetFlag}
             />
           ))}
         </div>
       </div>
+      <div className="row">
+        <div className="col-12">
+          <footer className="footer d-flex justify-content-between align-items-center px-4">
+            <p className="subtotal mb-0 ml-20">Subtotal: ${subtotal.toFixed(2)}</p>
+            <div className="d-flex gap-2">
+              <button 
+                type="button" 
+                className="btn btn-secondary btn-sm rounded-pill px-4 py-2"
+                onClick={handleOrder}
+              >
+                Order
+              </button>
+              <button 
+                type="button" 
+                className="btn btn-secondary btn-sm rounded-pill px-4 py-2"
+                onClick={handleClearAll}
+              >
+                Clear all
+              </button>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <Modal show={showModal} onHide={handleCloseModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Order Placed!</Modal.Title>
+        </Modal.Header>
+        {cart.length === 0 ? (
+          <p className="pt-3">No items added to cart</p>
+        ) : (
+          <ul className="pt-3">
+            {cart.map((item, index) => (
+              <li key={index}>
+                {item.quantity} x {item.title}
+              </li>
+            ))}
+          </ul>
+        )}
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
